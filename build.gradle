@@ -143,6 +143,11 @@ task patchJCEF {
         def cefAppFile = file('jcef/java/org/cef/CefApp.java')
         cefAppFile.text = cefAppFile.text.replace('System.loadLibrary("jawt");', file('patches/jcef-317.txt').text)
 
+        println "Patching java-cef#163"
+        cefAppFile.text = cefAppFile.text.replace('private GLCanvas canvas_;', file('patches/jcef-163-1.txt').text)
+        cefAppFile.text = cefAppFile.text.replace('canvas_ = new GLJCanvas(glcapabilities) {;', file('patches/jcef-163-2.txt').text)
+        cefAppFile.text = cefAppFile.text.replace('sendMouseWheelEvent(e);', file('patches/jcef-163-2.txt').text)
+
         if (System.getenv("TRAVIS_OS_NAME") == "osx") {
             //https://bitbucket.org/chromiumembedded/java-cef/issues/270
             println "Patching java-cef#270"
