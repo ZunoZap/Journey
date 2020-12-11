@@ -1,1 +1,1 @@
-canvas_ = new GLJPanel(glcapabilities) {
+canvas_ = new com.jogamp.opengl.awt.GLJPanel(glcapabilities) {
