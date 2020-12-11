@@ -27,16 +27,14 @@ import static org.joor.Reflect.on;
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class JourneyFxPane extends AnchorPane {
 
-    private BrowserView view;
+    private JourneyBrowserView view;
 
     public JourneyFxPane(CefBrowserProxy browser) {
-        this.view = new BrowserView(browser);
-        this();
+        this(new JourneyBrowserView(browser));
     }
 
-    public JourneyFxPane() {
-        if (null == this.view)
-            this.view = new BrowserView();
+    private JourneyFxPane(JourneyBrowserView view) {
+        this.view = view;
         SwingNode swingNode = new SwingNode();
 
         Component browserUi = (Component) getCefBrowser().getUIComponent();
@@ -49,22 +47,23 @@ public class JourneyFxPane extends AnchorPane {
         swingNode.setContent(browserUi);
     }
 
+    public JourneyFxPane() {
+        this(new JourneyBrowserView());
+    }
+
     public JourneyFxPane(JourneySettings journeySettings, String initialUrl) {
-        this.view = new BrowserView(journeySettings, initialUrl);
-        this();
+        this(new JourneyBrowserView(journeySettings, initialUrl));
     }
 
     public JourneyFxPane(String initialUrl) {
-        this.view = new BrowserView(initialUrl);
-        this();
+        thus(new JourneyBrowserView(initialUrl));
     }
 
     public JourneyFxPane(String[] args, JourneySettings journeySettings, String initialUrl) {
-        this.view = new BrowserView(args,journeySettings, initialUrl);
-        this();
+        this(new JourneyBrowserView(args,journeySettings, initialUrl));
     }
 
-    public BrowserView getBrowserView() {
+    public JourneyBrowserView getBrowserView() {
         return this.view;
     }
 
