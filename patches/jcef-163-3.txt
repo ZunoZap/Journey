@@ -1,0 +1,3 @@
+// Should fix FxJCEF #1
+MouseWheelEvent e2 = new MouseWheelEvent((Component) e.getSource(), e.getID(), e.getWhen(), e.getModifiers(), e.getX(), e.getY(), e.getClickCount(), e.isPopupTrigger(), e.getScrollType(), e.getScrollAmount()*-16, e.getWheelRotation());
+sendMouseWheelEvent(e = e2);

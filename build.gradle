@@ -29,6 +29,7 @@ repositories {
     mavenCentral()
     repositories {
         maven { url 'https://jitpack.io' }
+        maven { url 'http://isaiah.fungus-soft.com/maven-repo/' }
     }
 }
 
@@ -36,6 +37,7 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testCompile 'com.github.bfergerson:joor:bef9254b2a'
     compileOnly 'com.github.bfergerson:joor:bef9254b2a'
+    compileOnly 'com.fungus_soft:openjfx8_api:8u202-b02-scoop'
 
     compile fileTree(dir: 'jcef/binary_distrib/linux64/bin/', include: '*.jar')
     compile fileTree(dir: 'jcef/binary_distrib/win32/bin/', include: '*.jar')
@@ -142,6 +144,11 @@ task patchJCEF {
         println "Patching java-cef#317"
         def cefAppFile = file('jcef/java/org/cef/CefApp.java')
         cefAppFile.text = cefAppFile.text.replace('System.loadLibrary("jawt");', file('patches/jcef-317.txt').text)
+
+        println "Patching java-cef#163"
+        cefAppFile.text = cefAppFile.text.replace('private GLCanvas canvas_;', file('patches/jcef-163-1.txt').text)
+        cefAppFile.text = cefAppFile.text.replace('canvas_ = new GLJCanvas(glcapabilities) {;', file('patches/jcef-163-2.txt').text)
+        cefAppFile.text = cefAppFile.text.replace('sendMouseWheelEvent(e);', file('patches/jcef-163-3.txt').text)
 
         if (System.getenv("TRAVIS_OS_NAME") == "osx") {
             //https://bitbucket.org/chromiumembedded/java-cef/issues/270
