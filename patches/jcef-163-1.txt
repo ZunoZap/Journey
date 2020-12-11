@@ -1,1 +1,1 @@
-private GLJPanel canvas_;
+private com.jogamp.opengl.awt.GLJPanel canvas_;
