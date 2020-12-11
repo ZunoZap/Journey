@@ -37,8 +37,7 @@ public class JourneyFxPane extends AnchorPane {
         this.view = view;
         SwingNode swingNode = new SwingNode();
 
-        Component browserUi = (Component) getCefBrowser().getUIComponent();
-        uis.add(browserUi);
+        JComponent browserUi = (JComponent) getCefBrowser().getUIComponent();
         getChildren().add(swingNode);
         AnchorPane.setTopAnchor(swingNode, 0d);
         AnchorPane.setBottomAnchor(swingNode, 0d);
@@ -56,7 +55,7 @@ public class JourneyFxPane extends AnchorPane {
     }
 
     public JourneyFxPane(String initialUrl) {
-        thus(new JourneyBrowserView(initialUrl));
+        this(new JourneyBrowserView(initialUrl));
     }
 
     public JourneyFxPane(String[] args, JourneySettings journeySettings, String initialUrl) {
